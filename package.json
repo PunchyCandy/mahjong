@@ -1,0 +1,17 @@
+{
+  "name": "jade-court-mahjong",
+  "private": true,
+  "workspaces": [
+    "apps/*",
+    "packages/*"
+  ],
+  "scripts": {
+    "dev": "npm run dev --workspace @jade-court/web",
+    "dev:server": "npm run dev --workspace @jade-court/server",
+    "build": "npm run build --workspace @jade-court/mahjong-core && npm run build --workspace @jade-court/server && npm run build --workspace @jade-court/web",
+    "check": "npm run check --workspaces --if-present"
+  },
+  "devDependencies": {
+    "typescript": "^5.8.3"
+  }
+}

@@ -1,0 +1,64 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id        String   @id @default(cuid())
+  email     String?  @unique
+  name      String
+  createdAt DateTime @default(now())
+  games     GamePlayer[]
+}
+
+model Game {
+  id        String       @id @default(cuid())
+  roomId    String
+  status    GameStatus   @default(WAITING)
+  createdAt DateTime     @default(now())
+  endedAt   DateTime?
+  players   GamePlayer[]
+  events    GameEvent[]
+}
+
+model GamePlayer {
+  id     String @id @default(cuid())
+  gameId String
+  userId String?
+  seat   Seat
+  name   String
+  game   Game   @relation(fields: [gameId], references: [id])
+  user   User?  @relation(fields: [userId], references: [id])
+
+  @@unique([gameId, seat])
+}
+
+model GameEvent {
+  id        String   @id @default(cuid())
+  gameId    String
+  sequence  Int
+  type      String
+  payload   Json
+  createdAt DateTime @default(now())
+  game      Game     @relation(fields: [gameId], references: [id])
+
+  @@unique([gameId, sequence])
+}
+
+enum GameStatus {
+  WAITING
+  ACTIVE
+  FINISHED
+  ABANDONED
+}
+
+enum Seat {
+  EAST
+  SOUTH
+  WEST
+  NORTH
+}

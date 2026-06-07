@@ -1,0 +1,129 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Jade Court Mahjong</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600;700&family=Inter:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="icon" href="assets/favicon.svg" type="image/svg+xml" />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <main class="app-shell">
+      <section class="hero" aria-label="Jade Court Mahjong">
+        <div class="hero__shade"></div>
+        <div class="hero__content">
+          <p class="eyebrow">Four-player Mahjong</p>
+          <h1>Jade Court Mahjong</h1>
+          <p class="subtitle">
+            Draw, discard, and shape a real mahjong hand at a four-seat table.
+          </p>
+          <div class="hero__actions">
+            <button class="primary-action" id="newGameHero" type="button">
+              <span aria-hidden="true">⟲</span>
+              Deal hand
+            </button>
+            <button class="ghost-action" id="scrollToBoard" type="button">
+              <span aria-hidden="true">↓</span>
+              Table
+            </button>
+          </div>
+        </div>
+      </section>
+
+      <section class="game-section" id="game">
+        <header class="game-header">
+          <div>
+            <p class="eyebrow">Practice table</p>
+            <h2>Four Winds Table</h2>
+          </div>
+          <div class="stats" aria-label="Game statistics">
+            <div class="stat">
+              <span>Wall</span>
+              <strong id="wallCount">0</strong>
+            </div>
+            <div class="stat">
+              <span>Discards</span>
+              <strong id="discardCount">0</strong>
+            </div>
+            <div class="stat">
+              <span>Turn</span>
+              <strong id="turnWind">East</strong>
+            </div>
+          </div>
+        </header>
+
+        <div class="table-wrap">
+          <aside class="side-panel" aria-label="Table controls">
+            <div class="control-row">
+              <button id="dealHand" class="icon-button" type="button" aria-label="Deal hand" title="Deal hand">
+                ⟲
+              </button>
+              <button id="drawTile" class="icon-button" type="button" aria-label="Draw tile" title="Draw tile">
+                +
+              </button>
+              <button id="sortHand" class="icon-button" type="button" aria-label="Sort hand" title="Sort hand">
+                ⇅
+              </button>
+              <button id="analyzeHand" class="icon-button" type="button" aria-label="Analyze hand" title="Analyze hand">
+                ✦
+              </button>
+            </div>
+            <div class="message" id="message" role="status" aria-live="polite">
+              Deal a hand, draw from the wall, then discard one tile.
+            </div>
+            <div class="legend" aria-label="Tile suits">
+              <span><i class="dot dot--jade"></i>Chow: 3 suited sequence</span>
+              <span><i class="dot dot--red"></i>Pung: 3 identical</span>
+              <span><i class="dot dot--gold"></i>Kong: 4 identical</span>
+              <span><i class="dot dot--blue"></i>Mahjong: 4 sets + pair</span>
+            </div>
+          </aside>
+
+          <div class="board-frame">
+            <div class="mahjong-table" aria-label="Four-player mahjong table">
+              <div class="opponent opponent--top">
+                <span>North</span>
+                <div class="concealed-row" id="northHand"></div>
+              </div>
+              <div class="opponent opponent--left">
+                <span>West</span>
+                <div class="concealed-stack" id="westHand"></div>
+              </div>
+              <div class="opponent opponent--right">
+                <span>South</span>
+                <div class="concealed-stack" id="southHand"></div>
+              </div>
+              <div class="wall-box">
+                <span>Live wall</span>
+                <strong id="wallCenter">0</strong>
+              </div>
+              <div class="river" id="river" aria-label="Discard river"></div>
+              <div class="player-area">
+                <div class="hand-label">
+                  <span>East hand</span>
+                  <strong id="handCount">13 tiles</strong>
+                </div>
+                <div class="hand" id="playerHand" aria-label="Your hand"></div>
+              </div>
+            </div>
+            <div class="trainer">
+              <div>
+                <p class="eyebrow">Hand shape</p>
+                <h3 id="shapeTitle">Build toward mahjong</h3>
+                <p id="shapeText">A standard hand wins with four sets and one pair.</p>
+              </div>
+              <div class="examples" id="examples"></div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+    <script src="app.js"></script>
+  </body>
+</html>
